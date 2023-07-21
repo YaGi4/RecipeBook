@@ -1,0 +1,23 @@
+<div th:fragment = "header" xmlns:th = "http://www.thymeleaf.org">
+    <div style="display: flex; justify-content: space-between; padding-top: 40px; padding-bottom: 40px; min-height: 38px">
+        <div style="display: flex; align-content: start; justify-content: space-around; width: 40%">
+            <a href="/home" style="color: #FDB100; text-decoration: none; font-size: 18px; font-weight: 400 ">
+                Recipes
+            </a>
+            <a href="/home" style="color: #9196A1; text-decoration: none; font-size: 18px; font-weight: 400" th:styleappend = "${bold}">
+                Главная
+            </a>
+            <a href="/recipes" style="color: #9196A1; text-decoration: none; font-size: 18px; font-weight: 400 ">
+                Рецепты
+            </a>
+            <a href="/favorits" style="color: #9196A1; text-decoration: none; font-size: 18px; font-weight: 400 ">
+                Избранное
+            </a>
+        </div>
+        <div style="display: flex; align-content: end">
+            <a href="/userinfo" style="color: #FDB100; text-decoration: none; font-size: 18px; font-weight: 400; padding-right: 50px">
+                USER
+            </a>
+        </div>
+    </div>
+</div>

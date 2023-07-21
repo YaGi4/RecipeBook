@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th = "http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${title}"/>
+    </head>
+    <body style="max-width: 100%">
+        <div style="display: flex; flex-direction: column; justify-content: space-between">
+            <header th:insert="~{blocks/header}"></header>
+                <div th:text= "${content}" style="display: flex; justify-content: center"/>
+            <footer th:insert="~{blocks/footer}"></footer>
+        </div>
+    </body>
+</html>
