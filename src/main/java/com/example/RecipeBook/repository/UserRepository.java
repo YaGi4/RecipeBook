@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
     List<User> findAllFromUserRepository();
 
     @Query(value = "SELECT * FROM users WHERE \"ID\" = :id", nativeQuery = true)
-    List<User> findByID(Long id);
+    User findByID(Long id);
 
     @Query(value = "INSERT INTO users (user_name, email, password, about_user)" +
             " VALUES (:user_name, :email, :password, :about_user)", nativeQuery = true)
@@ -23,5 +23,5 @@ public interface UserRepository extends JpaRepository<User, Long>{
     void deleteByID(Long id);
 
     @Query(value = "SELECT * FROM users WHERE user_name = :name", nativeQuery = true)
-    List<User> findByName(String name);
+    User findByName(String name);
 }

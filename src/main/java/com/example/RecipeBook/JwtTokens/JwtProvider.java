@@ -36,12 +36,25 @@ public class JwtProvider {
 
     public String generateAccessToken(@NonNull User user) {
         final LocalDateTime now = LocalDateTime.now();
-        final Instant accessExpirationInstant = now.plusMinutes(5).atZone(ZoneId.systemDefault()).toInstant();
+        final Instant accessExpirationInstant = Instant.from(now.plusMinutes(5)).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
         return Jwts.builder()
                 .setSubject(user.getUser_name())
                 .setExpiration(accessExpiration)
                 .signWith(jwtAccessSecret)
+                .claim("id", user.getID())
                 .compact();
     }
+
+    public String generateRefreshToken(@NonNull User user) {
+        final LocalDateTime now = LocalDateTime.now();
+        final Instant refreshExpirationInstant = now.plusDays(30).atZone(ZoneId.systemDefault()).toInstant();
+        final Date refreshExpiration = Date.from(refreshExpirationInstant);
+        return Jwts.builder()
+                .setSubject(user.getUser_name())
+                .setExpiration(refreshExpiration)
+                .signWith(jwtRefreshSecret)
+                .compact();
+    }
+
 }

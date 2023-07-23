@@ -13,9 +13,8 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private List<User> users;
 
-    public List<User> getByLogin(@NonNull String login) {
+    public User getByLogin(@NonNull String login) {
         return userRepository.findByName(login);
     }
 }
