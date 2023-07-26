@@ -7,10 +7,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-
 @Controller
 @RequestMapping("/home")
 @AllArgsConstructor
@@ -30,9 +31,9 @@ public class HomeController {
         model.addAttribute("bold", ";font-weight: bold");
         return "home";
     }
-    @RequestMapping("/recipes")
-    public String recipes()
-    {
-        return "recipes";
+
+    @PostMapping
+    public void addAtribute(@RequestBody String content){
+        String addContent = content;
     }
 }

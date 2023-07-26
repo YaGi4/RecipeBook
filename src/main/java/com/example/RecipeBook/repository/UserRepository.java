@@ -5,13 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>{
     @Query(value = "SELECT * FROM users", nativeQuery = true)
-    List<User> findAllFromUserRepository();
+    Optional <User> findAllFromUserRepository();
 
-    @Query(value = "SELECT * FROM users WHERE \"ID\" = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE \"id\" = :id", nativeQuery = true)
     User findByID(Long id);
 
     @Query(value = "INSERT INTO users (user_name, email, password, about_user)" +
@@ -23,5 +23,5 @@ public interface UserRepository extends JpaRepository<User, Long>{
     void deleteByID(Long id);
 
     @Query(value = "SELECT * FROM users WHERE user_name = :name", nativeQuery = true)
-    User findByName(String name);
+    Optional<User> findByName(String name);
 }
