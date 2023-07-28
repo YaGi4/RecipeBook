@@ -1,4 +1,4 @@
-package com.example.RecipeBook.Security;
+package com.example.RecipeBook.Configs;
 
 import com.example.RecipeBook.JwtTokens.JwtFilter;
 import com.example.RecipeBook.repository.UserRepository;
@@ -23,36 +23,20 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class SecurityConfig{
 
-/*
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
+                .csrf().disable()
                 .authorizeHttpRequests()
             .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .formLogin()
                 .loginPage("/login").permitAll().and()
                 .rememberMe();
         return http.build();
     }
-*/
 
     private final JwtFilter jwtFilter;
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeHttpRequests(
-                        authz -> authz
-                                .requestMatchers("/api/auth/login", "/api/auth/token").permitAll()
-                                .anyRequest().authenticated()
-                                .and()
-                                .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                ).build();
-    }
 }

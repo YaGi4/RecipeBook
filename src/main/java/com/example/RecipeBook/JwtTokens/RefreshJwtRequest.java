@@ -1,10 +1,10 @@
 package com.example.RecipeBook.JwtTokens;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.antlr.v4.runtime.misc.NotNull;
 
-@Getter
-@Setter
+@Data
 public class RefreshJwtRequest {
+    @NotNull
     public String refreshToken;
 }

@@ -29,10 +29,12 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserRecipes> userRecipes = new ArrayList<>();
 
-    private String user_name;
+    @Column(name = "user_name")
+    private String userName;
     private String email;
     private String password;
-    private String about_user;
+    @Column(name = "about_user")
+    private String aboutUser;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -41,7 +43,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user_name;
+        return this.userName;
     }
 
     @Override
