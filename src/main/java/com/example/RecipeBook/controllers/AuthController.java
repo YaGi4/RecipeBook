@@ -1,6 +1,8 @@
 package com.example.RecipeBook.controllers;
 
-import jakarta.security.auth.message.AuthException;
+import com.example.RecipeBook.Exeption.NotValidTokenException;
+import com.example.RecipeBook.Exeption.UserNotFoundException;
+import com.example.RecipeBook.Exeption.WrongPasswordException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +23,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("login")
-    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest authRequest) throws AuthException {
+    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest authRequest) throws UserNotFoundException, WrongPasswordException {
         final JwtResponse token = authService.login(authRequest);
         return ResponseEntity.ok(token);
     }
@@ -35,7 +37,7 @@ public class AuthController {
 */
 
     @PostMapping("refresh")
-    public ResponseEntity<JwtResponse> getNewRefreshToken(@RequestBody RefreshJwtRequest request) throws AuthException {
+    public ResponseEntity<JwtResponse> getNewRefreshToken(@RequestBody RefreshJwtRequest request) throws NotValidTokenException, UserNotFoundException {
         final JwtResponse token = authService.refresh(request.getRefreshToken());
         return ResponseEntity.ok(token);
     }
