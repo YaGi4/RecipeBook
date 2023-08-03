@@ -1,11 +1,9 @@
 package com.example.RecipeBook.JwtTokens;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class JwtRequest {
 
     private String login;

@@ -14,14 +14,14 @@ public interface UserRepository extends JpaRepository<User, Long>{
     @Query(value = "SELECT * FROM users WHERE \"id\" = :id", nativeQuery = true)
     User findByID(Long id);
 
-    @Query(value = "INSERT INTO users (user_name, email, password, about_user)" +
-            " VALUES (:user_name, :email, :password, :about_user)", nativeQuery = true)
-    void addUser(@Param("user_name") String user_name, @Param("email") String email,
-                 @Param("password") String password, @Param("about_user") String about_user);
+    @Query(value = "INSERT INTO users (user_name, login, password)" +
+            " VALUES (:user_name, :login, :password)", nativeQuery = true)
+    void addUser(@Param("user_name") String user_name, @Param("login") String login,
+                 @Param("password") String password);
 
     @Query(value = "DELETE FROM users WHERE \"ID\" = :id", nativeQuery = true)
     void deleteByID(Long id);
 
-    @Query(value = "SELECT * FROM users WHERE user_name = :name", nativeQuery = true)
-    Optional<User> findByName(String name);
+    @Query(value = "SELECT * FROM users WHERE login = :login", nativeQuery = true)
+    Optional<User> findByLogin(String login);
 }

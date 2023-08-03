@@ -1,5 +1,6 @@
 package com.example.RecipeBook.JwtTokens;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
 

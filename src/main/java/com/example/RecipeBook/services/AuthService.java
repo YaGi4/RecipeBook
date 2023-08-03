@@ -1,4 +1,4 @@
-package com.example.RecipeBook.Security;
+package com.example.RecipeBook.services;
 
 import com.example.RecipeBook.Exeption.NotValidTokenException;
 import com.example.RecipeBook.Exeption.UserNotFoundException;
@@ -34,13 +34,13 @@ public class AuthService {
     }
 
     public JwtResponse login(@NonNull JwtRequest authRequest) throws UserNotFoundException, WrongPasswordException {
-        final User user = userRepository.findByName(authRequest.getLogin())
+        final User user = userRepository.findByLogin(authRequest.getLogin())
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
         if (PasswordService.getPasswordEncoder().matches(authRequest.getPassword(), user.getPassword())) {
             final String accessToken = jwtProvider.generateAccessToken(user);
             final String refreshToken = jwtProvider.generateRefreshToken(user);
-            valueOperations.set(refreshToken, user.getUsername());
-            redisTemplate.expire(refreshToken, 30, TimeUnit.DAYS);
+            valueOperations.set(refreshToken, user.getLogin());
+            redisTemplate.expire(refreshToken, 2, TimeUnit.DAYS);
             return new JwtResponse(accessToken, refreshToken);
         } else {
             throw new WrongPasswordException("wrong password");
@@ -53,11 +53,11 @@ public class AuthService {
             final String login = claims.getSubject();
             final String redisLogin = valueOperations.get(refreshToken).toString();
             if (redisLogin != null && redisLogin.equals(login)) {
-                final User user = userRepository.findByName(login)
+                final User user = userRepository.findByLogin(login)
                         .orElseThrow(() -> new UserNotFoundException("User not found"));
                 final String accessToken = jwtProvider.generateAccessToken(user);
                 final String newRefreshToken = jwtProvider.generateRefreshToken(user);
-                valueOperations.set(newRefreshToken, user.getUsername());
+                valueOperations.set(newRefreshToken, user.getLogin());
                 redisTemplate.expire(newRefreshToken, 2, TimeUnit.DAYS);
                 return new JwtResponse(accessToken, newRefreshToken);
             }

@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
     @Column(name = "user_name")
     private String userName;
-    private String email;
+    private String login;
     private String password;
     @Column(name = "about_user")
     private String aboutUser;
