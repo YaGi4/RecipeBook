@@ -8,5 +8,5 @@ public class UserResponseDto {
     private String name;
     private String login;
     private String password;
-    private String description;
+    private String aboutUser;
 }

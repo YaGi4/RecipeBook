@@ -31,7 +31,7 @@ public class SecurityConfig{
             .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                //.addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .formLogin()
                 .loginPage("/login").permitAll().and()
                 .rememberMe();

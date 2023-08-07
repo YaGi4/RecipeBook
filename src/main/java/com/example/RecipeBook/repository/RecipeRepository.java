@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
@@ -14,7 +15,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findAll();
 
     @Query(value = "SELECT * FROM recipe WHERE id = :id", nativeQuery = true)
-    List<Recipe> findByID(Long id);
+    Recipe findByID(Long id);
+
+    @Query(value = "SELECT * FROM recipe WHERE id IN (:id)", nativeQuery = true)
+    List<Recipe> findByID(List<Long> id);
 
     @Query(value = "INSERT INTO recipe(recipe_name, cooking_time, for_number_of_people, number_of_likes, number_of_favorites, recipe_description, link_on_recipe_photo, recipe_tags)" +
             "VALUES (:name, :time, :for_number_of_people, :likes, :favorites, :description, :photo_link, :tags)", nativeQuery = true)

@@ -18,7 +18,7 @@ public class User implements UserDetails {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long ID;
+    private final Long id;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserFavoritesRecipes> userFavoritesRecipes = new ArrayList<>();
@@ -30,7 +30,7 @@ public class User implements UserDetails {
     private List<UserRecipes> userRecipes = new ArrayList<>();
 
     @Column(name = "user_name")
-    private String userName;
+    private String name;
     private String login;
     private String password;
     @Column(name = "about_user")
@@ -43,7 +43,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.userName;
+        return this.name;
     }
 
     @Override

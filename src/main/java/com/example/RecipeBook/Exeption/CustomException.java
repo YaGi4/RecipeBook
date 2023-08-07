@@ -21,7 +21,6 @@ public class CustomException {
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorStatusDto wrongPassword(WrongPasswordException message){
-            Date date = new Date();
             ErrorStatusDto errorStatusDto = new ErrorStatusDto(HttpStatus.NOT_FOUND, 1002, message.getMessage());
             return errorStatusDto;
 
@@ -30,9 +29,14 @@ public class CustomException {
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorStatusDto wrongPassword(NotValidTokenException message){
-        Date date = new Date();
         ErrorStatusDto errorStatusDto = new ErrorStatusDto(HttpStatus.BAD_REQUEST, 1003, message.getMessage());
         return errorStatusDto;
-
+    }
+    @ExceptionHandler(UserAlreadyExists.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorStatusDto userAlreadyExists(UserAlreadyExists message){
+        ErrorStatusDto errorStatusDto = new ErrorStatusDto(HttpStatus.BAD_REQUEST, 1004, message.getMessage());
+        return errorStatusDto;
     }
 }

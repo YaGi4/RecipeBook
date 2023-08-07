@@ -15,10 +15,16 @@ public interface UserFavoritesRecipesRepository extends JpaRepository<UserFavori
     @Query(value = "SELECT * FROM user_favorite_recipes WHERE id = :id", nativeQuery = true)
     List<UserFavoritesRecipes> findByID(Long id);
 
+    @Query(value = "SELECT id FROM user_favorite_recipes WHERE recipe_id = :id", nativeQuery = true)
+    List<Long> findIdByRecipeId(Long id);
+
     @Query(value = "INSERT INTO user_favorite_recipes(recipe_id, user_id)" +
             "VALUES (:recipe_id, :user_id)", nativeQuery = true)
     void addUserFavoriteRecipes(@Param("recipe_id") Long recipe_id, @Param("user_id") Long user_id);
 
     @Query(value = "DELETE FROM user_favorite_recipes WHERE id = :id", nativeQuery = true)
     void deleteByID(Long id);
+
+    @Query(value = "SELECT recipe_id FROM user_favorite_recipes WHERE user_id =:id", nativeQuery = true)
+    List<Long> findByUserId(Long id);
 }

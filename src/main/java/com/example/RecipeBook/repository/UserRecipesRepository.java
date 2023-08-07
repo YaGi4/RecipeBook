@@ -15,6 +15,9 @@ public interface UserRecipesRepository extends JpaRepository<UserRecipes, Long> 
     @Query(value = "SELECT * FROM user_recipes WHERE id = :id", nativeQuery = true)
     List<UserRecipes> findByID(Long id);
 
+    @Query(value = "SELECT recipe_id FROM user_recipes WHERE user_id = :id", nativeQuery = true)
+    List<Long> findByUserId(Long id);
+
     @Query(value = "INSERT INTO user_recipes(recipe_id, user_id)" +
             "VALUES (:recipe_id, :user_id)", nativeQuery = true)
     void addUserRecipeReository(@Param("recipe_id") Long recipe_id, @Param("user_id")Long user_id);
